@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cattle Market Notes</title>
+<meta name="description" content="Cattle Market Notes, a free weekly cattle market newsletter: the latest issue, past issues and how to subscribe.">
+<script data-goatcounter="https://agecontools.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<style>
+  :root { color-scheme: light dark; --ink: #202020; --muted: #656565; --rule: #e4e4e4; --bg: #ffffff; --accent: #5d1725; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #ececec; --muted: #b0b0b0; --rule: #3a3a3a; --bg: #161616; --accent: #d9a0ab; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 38em; margin: 0 auto; padding: 48px 16px 64px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 28px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { border-top: 1px solid var(--rule); }
+  li:last-child { border-bottom: 1px solid var(--rule); }
+  li a { display: block; padding: 16px 0; color: inherit; text-decoration: none; }
+  li a b { display: block; font-size: 19px; }
+  li a span { display: block; color: var(--muted); font-size: 15px; margin-top: 2px; }
+  li a:hover b, li a:focus-visible b { text-decoration: underline; text-decoration-color: var(--accent); }
+  .foot { margin-top: 36px; color: var(--muted); font-size: 14px; }
+  .foot a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Cattle Market Notes</h1>
+  <p class="sub">A free weekly cattle market newsletter.</p>
+  <ul>
+    <li><a href="latest/" id="latest"><b>Read the latest issue</b><span id="latest-sub">Opens this week's issue.</span></a></li>
+    <li><a href="https://us15.campaign-archive.com/home/?u=d27b0f8ca2d30ab88ad971a94&amp;id=7a21d33b6e"><b>Past issues</b><span>Every issue, newest first.</span></a></li>
+    <li><a href="http://eepurl.com/cXEjef"><b>Subscribe</b><span>Free. One email a week, usually Monday afternoon.</span></a></li>
+  </ul>
+  <p class="foot">Written by extension economists at Mississippi State University, the University of Arkansas and the University of Kentucky.
+    More tools: <a href="../cattleprices/">cattle auction prices</a>, <a href="../drought/">drought tracker</a>, <a href="../beeftrade/">beef trade</a>.</p>
+</main>
+<script>
+  // Name the latest issue when latest.json loads; the link works without it.
+  fetch("latest.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(j => {
+    if (!j || !(j.subject || j.title)) return;
+    let when = "";
+    if (j.sent) { const d = new Date(j.sent); if (!isNaN(d)) when = d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); }
+    document.getElementById("latest-sub").textContent = (j.subject || j.title) + (when ? " (" + when + ")" : "");
+  }).catch(() => {});
+</script>
+</body>
+</html>
